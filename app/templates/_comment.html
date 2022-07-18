@@ -1,0 +1,12 @@
+{{ moment.include_moment() }}
+{{ moment.lang(g.locale) }}
+<div class="p-2 border-info my-2 bg-white rounded">
+    <div class="d-flex justify-content-between" style="font-size:14px;">
+        <span>Von
+            <span style="color:#009ACD;"> {{comment.author.username}}</span></span>
+        <span> am {{ moment(entry.created_at).format('DD.MM.YYYY, HH:mm:ss') }}</span>
+    </div>
+    <div class="mt-3">
+        {{comment.content}}
+    </div>
+</div>

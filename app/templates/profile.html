@@ -1,0 +1,51 @@
+{{ moment.include_moment() }}
+{{ moment.lang(g.locale) }}
+
+{% extends "base.html" %}
+
+{% block app_content %}
+<h2>Hallo, {{current_user.username}}</h2>
+<div className="my-3">
+    <p>Blogeinträge <span style="font-weight:bold;">{{entries|length}}</span> </p>
+    {% for entry in entries %}
+        <div class="row border rounded my-2 p-3 bg-light align-items-center">
+            <div class="col d-flex flex-column">
+                <span style="font-size:12px; font-style:italic;" class="text-info">erstellt am</span>
+                <span>{{ moment(entry.created_at).format('DD.MM.yyyy') }}</span>
+            </div>
+            <div class="col-6 d-flex flex-column">
+                <span style="font-size:12px;font-style:italic;" class="text-info">Titel</span>
+                <span>{{entry.title}}</span>
+            </div>
+            <div class="col-3">
+                <a href="{{ url_for('editEntry', entryId=entry.id) }}">
+                    <img style="width:20px;height:20px;cursor:pointer;" src="{{ url_for('static', filename='images/edit.svg')}}" class="mx-4" alt="EditIcon" />
+                </a>
+                <a href="{{ url_for('deleteEntry', entryId=entry.id) }}" onclick="return confirm('Wollen Sie diesen Eintrag wirklich löschen')">
+                    <img style="width:20px;height:20px;cursor:pointer;" src="{{ url_for('static', filename='images/delete.svg')}}" class="mx-4" alt="DeleteIcon" />
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div className="my-3">
+    <p>Kommentare <span style="font-weight:bold;">{{comments|length}}</span></p>
+    {% for comment in comments %}
+        <div class="row border rounded my-2 p-3 bg-light align-items-center">
+            <div class="col d-flex flex-column">
+                <span style="font-size:12px; font-style:italic;" class="text-info">erstellt am</span>
+                <span>{{ moment(comment.created_at).format('DD.MM.yyyy, HH:mm:ss') }}</span>
+            </div>
+            <div class="col-6 d-flex flex-column">
+                <span style="font-size:12px;font-style:italic;" class="text-info">Kommentar</span>
+                <span>{{comment.content}}</span>
+            </div>
+            <div className="col-3">
+                <a href="{{ url_for('deleteComment', commentId=comment.id) }}" onclick="return confirm('Wollen Sie diesen Kommentar wirklich löschen')">
+                    <img style="width:20px;height:20px;cursor:pointer;" src="{{ url_for('static', filename='images/delete.svg')}}" class="mx-4" alt="DeleteIcon" />
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+ </div>
+{% endblock %}

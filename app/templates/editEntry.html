@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="mt-5 bg-light p-4 border rounded">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form-group mb-3">
+                    {{ form.title.label }}
+                    {{ form.title(value=entry.title, class_="form-control") }}
+                    {% for error in form.title.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group mb-3">
+                    {{ form.content.label }}
+                    {{ form.content(class_="form-control") }}
+                    {% for error in form.content.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group mb-3">
+                    {{ form.tags.label }}
+                    {{ form.tags(value=entry.tags, class_="form-control") }}
+                </div>
+                <div class="text-center mt-4">
+                    {{ form.submit(class_="btn btn-primary mx-auto") }}
+                </div>
+            </form>
+        </div>
+{% endblock %}

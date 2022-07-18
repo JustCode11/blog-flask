@@ -1,0 +1,33 @@
+<header class="navbar navbar-expand-lg navbar-light px-4 py-3 d-flex justify-content-between" style="background-color:#ccc;">
+            <div class="d-flex justify-content-center">
+                <a class="navbar-brand" href="/">Programmierer Blog</a>
+                {% if current_user.is_authenticated %}
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('addEntry') }}">Neuer Blogeintrag</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                {% if current_user.is_anonymous %}
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Anmelden</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('signup') }}">Registrieren</a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('profile') }}">{{current_user.username}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">Abmelden</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+        </header>

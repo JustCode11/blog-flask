@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Programmierer Blog</h1>
+    {% for entry in entries %}
+        {% include '_entry.html' %}
+    {% endfor %}
+{% endblock %}
